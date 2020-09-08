@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {  useState } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
@@ -41,18 +41,24 @@ const LeftMenuItem = styled.li`
 
 const LeftMenu = () => {
   let history = useHistory();
-  console.log(history)
+  const [currentActive, setCurrentActive] = useState(history.location.pathname);
+
+  const leftMenuClick = pathname => {
+    setCurrentActive(pathname);
+    history.push(pathname);
+  }
+
   return (
     <LeftMenuContainer>
       <SiteTitle>Arraio</SiteTitle>
       <LeftMenuList>
-        <LeftMenuItem active={history.location.pathname === "/" && true} onClick={() => history.push('/')}>
+        <LeftMenuItem active={currentActive === "/" && true} onClick={() => leftMenuClick('/')}>
           Dashboard
         </LeftMenuItem>
-        <LeftMenuItem active={history.location.pathname === "/messages" && true} onClick={() => history.push('/messages')}>
+        <LeftMenuItem active={currentActive === "/messages" && true} onClick={() => leftMenuClick('/messages')}>
           Wiadomości
         </LeftMenuItem>
-        <LeftMenuItem active={history.location.pathname === "/phones" && true} onClick={() => history.push('/phones')}>
+        <LeftMenuItem active={currentActive === "/phones" && true} onClick={() => leftMenuClick('/phones')}>
           Telefony
         </LeftMenuItem>
       </LeftMenuList>

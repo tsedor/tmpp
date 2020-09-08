@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import Button from './UI/Button';
+
 const PhonesList = styled.ul`
   list-style: none;
   margin: 0;
@@ -27,15 +29,6 @@ const PhoneStatus = styled.span`
   margin: 1em 0 0 0;
 `;
 const PhoneButtons = styled.div``;
-const Button = styled.button`
-  background-color: ${({ type }) => type === 'primary' ? '#4279ee' : type === 'danger' ? '#ed725a' : '#aaed2b'};
-  border: 1px #efefef solid;
-  border-radius: 3px;
-  color: ${({ type }) => type === 'primary' ? '#ffffff' : '#000000'};
-  font-weight: 600;
-  margin: 1em 1em 0 0;
-  padding: .5em 1em;
-`;
 
 const Phones = () => {
   return (
