@@ -5,7 +5,7 @@ import phonesReducer from './phonesReducer';
 import uiReducer from './uiReducer';
 
 export default combineReducers({
-  messagesReducer,
+  messages: messagesReducer,
   phonesReducer,
   uiReducer
 });
