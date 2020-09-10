@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+
+import { fetchMessages } from '../actions';
 
 const MessagesList = styled.ul`
   background-color: #ffffff;
@@ -31,9 +34,21 @@ const MessageDetails = styled.p`
 `;
 
 const Messages = () => {
+  const dispatch = useDispatch();
+  const messages = useSelector(state => state.messages);
+  useEffect(() => {
+    dispatch(fetchMessages())
+  })
   return (
     <>
       <MessagesList>
+        {messages.map(message => (
+          <MessagesListItem key={message.id}>
+            <MessageTitle>Prosty landpage</MessageTitle>
+            <MessageDate>2020-08-09</MessageDate>
+            <MessageDetails>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium, est fugit voluptatum a facere sit consectetur veniam nulla amet blanditiis? Officiis provident at molestiae neque est recusandae numquam fuga? Et.</MessageDetails>
+          </MessagesListItem>
+        ))}
         <MessagesListItem>
           <MessageTitle>Prosty landpage</MessageTitle>
           <MessageDate>2020-08-09</MessageDate>
