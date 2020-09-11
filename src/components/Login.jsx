@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { signIn } from '../service/arraioLoginService';
+import { fetchLogin } from '../actions/loginAction';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -12,12 +12,17 @@ const Login = () => {
     login: login,
     password: password
   }
+ 
 
   const singIn = e => {
     e.preventDefault();
-    dispatch(signIn(signInData));
+    dispatch(fetchLogin(signInData));
   }
-  
+
+  const token = useSelector(state => state.token);
+
+  console.log(token);
+
 return (
   <form onSubmit={ singIn }>
     <input type="text"  onChange = { (e) => setLogin(e.target.value) }/>
