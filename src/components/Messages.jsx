@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { fetchMessages } from '../actions';
+import { fetchMessages } from '../actions/messageAction';
 
 const MessagesList = styled.ul`
   background-color: #ffffff;
@@ -35,10 +35,13 @@ const MessageDetails = styled.p`
 
 const Messages = () => {
   const dispatch = useDispatch();
+  const token = useSelector(state => state.token);
   const messages = useSelector(state => state.messages);
+
   useEffect(() => {
-    dispatch(fetchMessages())
+    dispatch(fetchMessages(token))
   })
+
   return (
     <>
       <MessagesList>

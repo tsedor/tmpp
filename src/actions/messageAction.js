@@ -18,11 +18,16 @@ const fetchMessagesFailure = () => ({
   type: FETCH_MESSAGES_FAILURE
 })
 
-export const fetchMessages = () => {
+export const fetchMessages = (token) => {
+  
   return async (dispatch) => {
     try {
       dispatch(fetchMessagesStart());
-      const data = await axios.get('http://localhost:3000/messages.json')
+      const data = await axios.get(
+        'https://api.arraio.pl/api/client/phone-call-request/list', {
+          headers: { 'Authorization':  `Bearer ${ token }` }
+        }
+      )
       dispatch(fetchMessagesSuccess(data.data));
     } catch(e) {
       dispatch(fetchMessagesFailure())

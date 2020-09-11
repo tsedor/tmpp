@@ -25,7 +25,7 @@ export const fetchLogin = (param) => {
       const response = await axios.post('https://api.arraio.pl/api/login', param)
       dispatch(fetchLoginSuccess(response.data));
     } catch(e) {
-    //   dispatch(fetchLoginFailure())
+      dispatch(fetchLoginFailure())
     }
   }
 }
