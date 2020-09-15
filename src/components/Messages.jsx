@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import moment from 'moment'
 
 import { fetchMessages } from '../actions/messageAction';
 
@@ -36,37 +37,24 @@ const MessageDetails = styled.p`
 const Messages = () => {
   const dispatch = useDispatch();
   const token = useSelector(state => state.token);
-  const messages = useSelector(state => state.messages);
+  const messages = useSelector(state => state.messages.data);
+
+  console.log(messages);
 
   useEffect(() => {
     dispatch(fetchMessages(token))
-  })
+  }, [])
 
   return (
     <>
       <MessagesList>
-        {messages.map(message => (
-          <MessagesListItem key={message.id}>
-            <MessageTitle>Prosty landpage</MessageTitle>
-            <MessageDate>2020-08-09</MessageDate>
-            <MessageDetails>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium, est fugit voluptatum a facere sit consectetur veniam nulla amet blanditiis? Officiis provident at molestiae neque est recusandae numquam fuga? Et.</MessageDetails>
+        { messages && messages.map(message => (
+          <MessagesListItem key={ message.id }>
+            <MessageTitle>{ message.name }</MessageTitle>
+            <MessageDate>{ moment(message.created_at).format('DD.MM.YYYY H:mm:s') }</MessageDate>
+            <MessageDetails>{ message.message }</MessageDetails>
           </MessagesListItem>
         ))}
-        <MessagesListItem>
-          <MessageTitle>Prosty landpage</MessageTitle>
-          <MessageDate>2020-08-09</MessageDate>
-          <MessageDetails>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium, est fugit voluptatum a facere sit consectetur veniam nulla amet blanditiis? Officiis provident at molestiae neque est recusandae numquam fuga? Et.</MessageDetails>
-        </MessagesListItem>
-        <MessagesListItem>
-          <MessageTitle>Strona domowa</MessageTitle>
-          <MessageDate>2020-08-09</MessageDate>
-          <MessageDetails>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo nam itaque atque excepturi quod sit ex minus at enim, laboriosam ratione repudiandae maiores unde? Modi?</MessageDetails>
-        </MessagesListItem>
-        <MessagesListItem>
-          <MessageTitle>Wizytówka</MessageTitle>
-          <MessageDate>2020-08-09</MessageDate>
-          <MessageDetails>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur sed nam vitae delectus quisquam architecto repellendus voluptas eos, maiores officiis ad et temporibus molestiae consectetur doloribus ex natus adipisci laboriosam cupiditate. Libero, harum! Corrupti libero maiores eum officiis, aliquam neque.</MessageDetails>
-        </MessagesListItem>
       </MessagesList>
     </>
   )

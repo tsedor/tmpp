@@ -24,7 +24,7 @@ export const fetchMessages = (token) => {
     try {
       dispatch(fetchMessagesStart());
       const data = await axios.get(
-        'https://api.arraio.pl/api/client/phone-call-request/list', {
+        'https://api.arraio.pl/api/client/message/list', {
           headers: { 'Authorization':  `Bearer ${ token }` }
         }
       )
