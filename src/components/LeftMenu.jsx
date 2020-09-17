@@ -31,7 +31,7 @@ const LeftMenuItem = styled.li`
   cursor: pointer;
   font-size: 12px;
   font-weight: 700;
-  padding: 1em 2em;
+  padding: 2em;
   text-transform: uppercase;
   &:hover {
     background-color: #fbfdff;

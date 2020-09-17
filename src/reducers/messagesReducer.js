@@ -1,11 +1,11 @@
-import { FETCH_MESSAGES_SUCCESS } from '../actions';
+import { FETCH_MESSAGES_SUCCESS } from '../actions/messageAction';
 
 const initialState = [];
 
 const messagesReducer = (state = initialState, action) => {
-  switch(action) {
+
+  switch(action.type) {
     case FETCH_MESSAGES_SUCCESS:
-      console.log(action)
       return action.payload;
     default:
       return state;

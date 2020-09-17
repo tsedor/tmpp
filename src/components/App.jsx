@@ -1,9 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import styled, { createGlobalStyle } from 'styled-components';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components';
+import { useSelector } from 'react-redux';
 
-import LeftMenu from './LeftMenu';
 import Main from './Main';
+import Login from './Login';
+
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -15,21 +17,18 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const AppContainer = styled.div`
-  background-color: #fafbfd;
-  display: grid;
-  grid-template-columns: 270px 1fr;
-  height: 100%;
-`;
 
 const App = () => {
+  const token = useSelector(state => state.token);
+
   return (
     <Router>
-      <AppContainer>
-        <GlobalStyle />
-        <LeftMenu />
-        <Main />
-      </AppContainer>
+      <GlobalStyle />
+      {token === '' ? <Redirect to="/login" /> : <Redirect to="/" /> }
+      <Switch>
+        <Route path="/login" component={Login} />
+        <Route path="/" component={Main} />
+      </Switch>
     </Router>
   )
 }
