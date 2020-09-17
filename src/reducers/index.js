@@ -7,7 +7,7 @@ import uiReducer from './uiReducer';
 
 export default combineReducers({
   messages: messagesReducer,
+  phones: phonesReducer,
   token: loginReducer,
-  phonesReducer,
   uiReducer
 });
