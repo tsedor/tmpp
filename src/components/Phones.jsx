@@ -1,6 +1,9 @@
-import React from 'react';
+import React,  { useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 
+import { fetchPhones } from '../actions/phoneAction';
 import Button from './UI/Button';
 
 const PhonesList = styled.ul`
@@ -12,36 +15,51 @@ const PhonesListItem = styled.li`
   background-color: #ffffff;
   border: 1px #efefef solid;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
   padding: 1em;
+  margin: 10px auto;
 `;
 
 const PhoneNumber = styled.span`
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
+  padding-right: 20px;
 `;
 const PhoneDate = styled.span`
   color: #87868e;
-  font-size: 14px;
+  font-size: 12px;
 `;
-const PhoneStatus = styled.span`
-  font-weight: 600;
-  margin: 1em 0 0 0;
+const PhoneButtons = styled.div`
+  float: right;
 `;
-const PhoneButtons = styled.div``;
 
 const Phones = () => {
+  const dispatch = useDispatch();
+  const token = useSelector(state => state.token);
+  const phones = useSelector(state => state.phones.data);
+
+  useEffect(() => {
+    dispatch(fetchPhones(token))
+  }, [])
+
   return (
     <PhonesList>
-      <PhonesListItem>
-        <PhoneNumber>606-999-888</PhoneNumber>
-        <PhoneDate>2012-07-06</PhoneDate>
-        <PhoneStatus>Status: do wykonania</PhoneStatus>
+       { phones && phones.map(phone => (
+      <PhonesListItem key={ phone.id }>
+        <div>
+        <PhoneNumber>{ phone.phoneNumber }</PhoneNumber>
+        <PhoneDate>{ moment(phone.created_at).format('DD.MM.YYYY HH:mm:ss') }</PhoneDate>
+        </div>
         <PhoneButtons>
-          <Button>potwierdź</Button>
-          <Button type="danger">usuń</Button>
+          <Button width={ "50px" }>potwierdź</Button>
+          <Button width={ "50px" } type="danger">usuń</Button>
         </PhoneButtons>
       </PhonesListItem>
+       ))}
     </PhonesList>
   )
 }
