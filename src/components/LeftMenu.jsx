@@ -1,6 +1,10 @@
 import React, {  useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+
 import { useHistory } from 'react-router-dom';
+import { fetchLogout } from '../actions/loginAction';
+
 
 const LeftMenuContainer = styled.div`
   background-color: #ffffff;
@@ -40,12 +44,18 @@ const LeftMenuItem = styled.li`
 `;
 
 const LeftMenu = () => {
+  const dispatch = useDispatch();
+
   let history = useHistory();
   const [currentActive, setCurrentActive] = useState(history.location.pathname);
 
   const leftMenuClick = pathname => {
     setCurrentActive(pathname);
     history.push(pathname);
+  }
+  
+  const logout = () => {
+    dispatch(fetchLogout());
   }
 
   return (
@@ -60,6 +70,9 @@ const LeftMenu = () => {
         </LeftMenuItem>
         <LeftMenuItem active={currentActive === "/phones" && true} onClick={() => leftMenuClick('/phones')}>
           Telefony
+        </LeftMenuItem>
+        <LeftMenuItem onClick={() => logout()}>
+          Wyloguj
         </LeftMenuItem>
       </LeftMenuList>
     </LeftMenuContainer>
